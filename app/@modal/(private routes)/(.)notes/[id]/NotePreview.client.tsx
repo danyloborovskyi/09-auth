@@ -4,11 +4,12 @@ import css from "./NotePreview.module.css";
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
-import { fetchNoteById } from "@/lib/api";
+import { fetchNoteById } from "@/lib/api/api";
 import ModalPreview from "@/components/ModalPreview/ModalPreview";
 
-import NoteError from "../../../notes/filter/[...slug]/error";
-import Loading from "../../../loading";
+import NoteError from "@/app/(private routes)/notes/filter/[...slug]/error";
+// "../../../notes/filter/[...slug]/error";
+import Loading from "../../../../loading";
 
 export default function NotePreviewClient() {
   const { id } = useParams<{ id: string }>();

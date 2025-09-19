@@ -9,12 +9,12 @@ import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import css from "./NotesClient.module.css";
 
-import { fetchNotes } from "@/lib/api";
+import { fetchNotes } from "@/lib/api/api";
 import NoteList from "@/components/NoteList/NoteList";
-import type { NoteResponse } from "@/lib/api";
+import type { NoteResponse } from "@/lib/api/api";
 import type { Tag } from "@/types/note";
 import Error from "./error";
-import Loading from "../../../loading";
+import Loading from "@/app/loading";
 
 interface NotesFilterProps {
   filter?: string[] | undefined;

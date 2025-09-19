@@ -117,7 +117,7 @@ import type { Tag } from "@/types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-import { createNote, NewNote } from "@/lib/api";
+import { createNote, NewNote } from "@/lib/api/api";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
 // import DraftSaver from "../DraftSaver/DraftSaver";
 

@@ -20,6 +20,11 @@ axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 axios.defaults.headers.common["Authorization"] = `Bearer ${myKey}`;
 axios.defaults.headers.common["accept"] = "application/json";
 
+export const nextServer = axios.create({
+  baseURL: "http://localhost:3000/api",
+  withCredentials: true, // дозволяє axios працювати з cookie
+});
+
 export async function fetchNotes(
   params: FetchNotesProps
 ): Promise<NoteResponse> {

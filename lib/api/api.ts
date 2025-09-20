@@ -21,7 +21,7 @@ axios.defaults.headers.common["Authorization"] = `Bearer ${myKey}`;
 axios.defaults.headers.common["accept"] = "application/json";
 
 export const nextServer = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
   withCredentials: true, // дозволяє axios працювати з cookie
 });
 
@@ -29,7 +29,7 @@ export async function fetchNotes(
   params: FetchNotesProps
 ): Promise<NoteResponse> {
   const { search, tag, page, perPage, sortBy } = params;
-  const response = await axios.get<NoteResponse>("/notes", {
+  const response = await nextServer.get<NoteResponse>("/notes", {
     params: {
       search: search,
       tag,
@@ -78,16 +78,16 @@ export type NewNote = {
 };
 
 export async function createNote(newNote: NewNote): Promise<Note> {
-  const response = await axios.post<Note>("/notes", newNote);
+  const response = await nextServer.post<Note>("/notes", newNote);
   return response.data;
 }
 
 export async function deleteNote(id: Note["id"]): Promise<Note> {
-  const response = await axios.delete<Note>(`/notes/${id}`);
+  const response = await nextServer.delete<Note>(`/notes/${id}`);
   return response.data;
 }
 
 export async function fetchNoteById(id: Note["id"]): Promise<Note> {
-  const response = await axios.get<Note>(`/notes/${id}`);
+  const response = await nextServer.get<Note>(`/notes/${id}`);
   return response.data;
 }

@@ -7,7 +7,6 @@ import { updateMe, getMe } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { type User } from "@/types/user";
-import { log } from "console";
 
 export default function EditPage() {
   const router = useRouter();

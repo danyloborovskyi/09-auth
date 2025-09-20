@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { nextServer } from "./api";
-import { type User } from "@/types/note";
+import { type User } from "@/types/user";
 
 export const checkServerSession = async () => {
   // Дістаємо поточні cookie

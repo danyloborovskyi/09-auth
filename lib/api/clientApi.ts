@@ -1,5 +1,5 @@
 import { nextServer } from "../api/api";
-import type { User } from "@/types/note";
+import type { User } from "@/types/user";
 
 export const register = async (data: SignUpRequest) => {
   const res = await nextServer.post<User>("/auth/register", data);

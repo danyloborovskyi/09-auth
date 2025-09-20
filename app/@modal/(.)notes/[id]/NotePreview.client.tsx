@@ -9,7 +9,7 @@ import ModalPreview from "@/components/ModalPreview/ModalPreview";
 
 import NoteError from "@/app/(private routes)/notes/filter/[...slug]/error";
 // "../../../notes/filter/[...slug]/error";
-import Loading from "../../../../loading";
+import Loading from "../../../loading";
 
 export default function NotePreviewClient() {
   const { id } = useParams<{ id: string }>();

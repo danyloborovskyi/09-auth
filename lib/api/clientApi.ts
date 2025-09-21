@@ -1,5 +1,57 @@
 import { nextServer } from "../api/api";
 import type { User } from "@/types/user";
+import type { Note, Tag } from "@/types/note";
+
+export interface NoteResponse {
+  notes: Note[];
+  totalPages: number;
+}
+
+export interface FetchNotesProps {
+  search?: string;
+  tag?: Tag;
+  page?: number;
+  perPage?: number;
+  sortBy?: "created" | "updated";
+}
+
+export async function fetchNotes(
+  params: FetchNotesProps
+): Promise<NoteResponse> {
+  const { search, tag, page, perPage, sortBy } = params;
+  const response = await nextServer.get<NoteResponse>("/notes", {
+    params: {
+      search: search,
+      tag,
+      page: page,
+      perPage: perPage,
+      sortBy,
+    },
+  });
+  console.log("Відповідь сервера:", response.data);
+  return response.data;
+}
+
+export type NewNote = {
+  title: string;
+  content: string;
+  tag: string;
+};
+
+export async function createNote(newNote: NewNote): Promise<Note> {
+  const response = await nextServer.post<Note>("/notes", newNote);
+  return response.data;
+}
+
+export async function deleteNote(id: Note["id"]): Promise<Note> {
+  const response = await nextServer.delete<Note>(`/notes/${id}`);
+  return response.data;
+}
+
+export async function fetchNoteById(id: Note["id"]): Promise<Note> {
+  const response = await nextServer.get<Note>(`/notes/${id}`);
+  return response.data;
+}
 
 export const register = async (data: SignUpRequest) => {
   const res = await nextServer.post<User>("/auth/register", data);

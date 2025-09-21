@@ -5,7 +5,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "aliiev-lomach.com" },
-      { protocol: "https", hostname: "static.jojowiki.com" },
+      { protocol: "https", hostname: "static.vecteezy.com" },
+      { protocol: "https", hostname: "ac.goit.global" },
     ],
   },
   async headers() {

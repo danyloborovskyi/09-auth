@@ -6,17 +6,19 @@ import { useState, useEffect } from "react";
 import { updateMe, getMe } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
-import { type User } from "@/types/user";
 
 export default function EditPage() {
   const router = useRouter();
-  const [user, setEditUser] = useState<User | null>(null);
+  // const [user, setEditUser] = useState<User | null>(null);
+  // const [userName, setUserName] = useState("");
+  // const setUser = useAuthStore((state) => state.setUser);
+
+  const { user, setUser } = useAuthStore();
   const [userName, setUserName] = useState("");
-  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     getMe().then((user) => {
-      setEditUser(user ?? null);
+      setUser(user);
     });
   }, []);
 
@@ -24,20 +26,19 @@ export default function EditPage() {
     setUserName(event.target.value);
   };
 
-  const handleSaveUser = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    //await updateMe({ username: userName, avatar })
-    await updateMe({ username: userName });
+  const handleSaveUser = async () => {
+    const updatedUser = await updateMe({ username: userName });
     if (user) {
-      setUser(user);
+      setUser(updatedUser);
     }
     router.push("/profile");
-    console.log("success");
   };
 
   const handleCancel = () => {
-    router.push("/profile");
+    router.back();
   };
+
+  const userNameLabel = userName.length === 0 ? user?.username : userName;
 
   return (
     <main className={css.mainContent}>
@@ -45,25 +46,30 @@ export default function EditPage() {
         <h1 className={css.formTitle}>Edit Profile</h1>
 
         <Image
-          src="https://static.jojowiki.com/images/thumb/6/6e/latest/20210313174003/Joseph_young_BT_Infobox_Anime.png/400px-Joseph_young_BT_Infobox_Anime.png"
+          src={
+            user?.avatar ||
+            "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg"
+          }
           alt="User Avatar"
           width={120}
           height={120}
           className={css.avatar}
         />
 
-        <form className={css.profileInfo} onSubmit={handleSaveUser}>
+        <form className={css.profileInfo} action={handleSaveUser}>
           <div className={css.usernameWrapper}>
-            <label htmlFor="username">Username: {userName}</label>
+            <label htmlFor="username">Username: {userNameLabel}</label>
             <input
               id="username"
               type="text"
               className={css.input}
               onChange={handleChange}
+              autoFocus
+              value={userName}
             />
           </div>
 
-          <p>Email: user_email@example.com</p>
+          <p>Email: {user?.email}</p>
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>

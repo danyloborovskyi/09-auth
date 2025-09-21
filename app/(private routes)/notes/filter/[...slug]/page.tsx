@@ -3,7 +3,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api/api";
+import { fetchNotesServer } from "@/lib/api/serverApi";
 import { Metadata } from "next";
 
 import type { Tag } from "@/types/note";
@@ -35,7 +35,7 @@ const NotesByCategory = async ({ params }: Props) => {
       12,
       slug[0] === "All" ? undefined : (slug[0] as Tag),
     ],
-    queryFn: () => fetchNotes(query),
+    queryFn: () => fetchNotesServer(query),
   });
 
   return (

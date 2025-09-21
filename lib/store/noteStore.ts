@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { NewNote } from "@/lib/api/api";
+import { NewNote } from "@/lib/api/clientApi";
 import { persist } from "zustand/middleware";
 
 type NoteDraftStore = {

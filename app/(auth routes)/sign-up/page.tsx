@@ -67,7 +67,7 @@ export default function SignUp() {
           </button>
         </div>
 
-        <p className={css.error}>Error</p>
+        {error && <p className={css.error}>Error</p>}
       </form>
     </main>
   );
